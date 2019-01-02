@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<base href="__STATIC__/admin/">
+<link href="css/shop.css" type="text/css" rel="stylesheet" />
+<link href="css/Sellerber.css" type="text/css"  rel="stylesheet" />
+<link href="css/bkg_ui.css" type="text/css"  rel="stylesheet" />
+<link href="font/css/font-awesome.min.css"  rel="stylesheet" type="text/css" />
+<script src="js/jquery-1.9.1.min.js" type="text/javascript" ></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script src="js/shopFrame.js" type="text/javascript"></script>
+<script src="js/Sellerber.js" type="text/javascript"></script>
+<script src="js/layer/layer.js" type="text/javascript"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/jquery.dataTables.bootstrap.js"></script>
+<title>机构列表</title>
+</head>
+<!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
+  <script src="js/css3-mediaqueries.js"  type="text/javascript"></script>
+  <![endif]-->
+<body>
+<div class="margin Competence_style" id="page_style">
+    <div class="operation clearfix">
+<a href="{:url('Mechanism/mechanism_add')}"  class="btn button_btn bg-deep-blue" title="添加管理员"><i class="fa  fa-edit"></i>&nbsp;添加机构</a>
+ 
+
+</div>
+<div class="compete_list">
+   <table id="sample_table" class="table table_list table_striped table-bordered dataTable no-footer">
+	 <thead>
+		<tr>
+			<th class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
+			<th>类型名称</th>
+	        <th>状态</th>
+			<th class="hidden-480">操作</th>
+        </tr>
+	</thead>
+    <tbody>
+	    <?php foreach ($mechanism_data as $key => $v) { ?>
+			<tr>
+				<td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
+				<td>{$v.mechanism_type_name}</td>
+	            <td class="td-status"><span class="label label-success label-sm"><?php if($v['mechanism_type_state'] == 1){echo '已启用';} else{echo '已停用';} ?></span></td>
+				<td class="td-manage">
+				<?php if($v['mechanism_type_state'] == 1){ ?>
+					<a title="停用" onclick="Competence_close(this,'12')" number='2' mechanism_type_id="{$v.mechanism_type_id}" href="javascript:;" class="btn button_btn btn-Dark-success state">停用</a>
+				<?php }else{ ?>
+					<a style="text-decoration:none" class="btn button_btn btn-gray state" number='1' mechanism_type_id="{$v.mechanism_type_id}" onclick="Competence_start(this,id)" href="javascript:;" title="启用">启用</a>
+				<?php } ?>
+	             	<a title="删除" href="javascript:;" mechanism_type_id="{$v.mechanism_type_id}" id="mechanism_id" class="btn button_btn btn-danger admin_del">删除</a>
+				</td>
+			</tr>
+		<?php } ?>
+		      </tbody>
+	        </table>
+     </div>
+</div>
+</body>
+</html>
+<script>
+$(function(){
+	$("#Competence_sort").click(function(){
+		var option=$(this).find("option:selected").text();
+		var value=$(this).val();
+		if(value==0){
+			$("#sample_table tbody tr").show()
+		}else{
+		$("#sample_table tbody tr").hide().filter(":contains('"+(option)+"')").show();	
+			}
+	}).click();	
+});
+
+/*******滚动条*******/
+$("body").niceScroll({  
+	cursorcolor:"#888888",  
+	cursoropacitymax:1,  
+	touchbehavior:false,  
+	cursorwidth:"5px",  
+	cursorborder:"0",  
+	cursorborderradius:"5px"  
+});
+/*管理员-停用*/
+function Competence_close(obj,id){
+	layer.confirm('确认要停用吗？',function(index){
+		var mechanism_type_id = $(obj).attr('mechanism_type_id');
+		$.ajax({
+			url:'{:url("Mechanism/update_mechanism_state")}',
+			type:'post',
+			data:{
+				'mechanism_type_state':2,
+				'mechanism_type_id':mechanism_type_id
+			},
+			dataType:'json',
+			success:function(data){
+				if(data.state == 1){
+					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="btn button_btn btn-gray" onClick="Competence_start(this,id)" mechanism_type_id='+mechanism_type_id+' href="javascript:;" title="启用">启用</a>');
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-success label-sm">已停用</span>');
+					$(obj).remove();
+					layer.msg('已停用!',{icon: 5,time:1000});
+				} else{
+					layer.msg('操作失败，请重新操作!',{icon: 5,time:1000});
+				}
+			}
+		});
+		
+	});
+}
+
+/*管理员-启用*/
+function Competence_start(obj,id){
+	layer.confirm('确认要启用吗？',function(index){
+		var mechanism_type_id = $(obj).attr('mechanism_type_id');
+		$.ajax({
+			url:'{:url("Mechanism/update_mechanism_state")}',
+			type:'post',
+			data:{
+				'mechanism_type_state':1,
+				'mechanism_type_id':mechanism_type_id
+			},
+			dataType:'json',
+			success:function(data){
+				if(data.state == 1){
+					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="btn button_btn  btn-Dark-success" onClick="Competence_close(this,id)" mechanism_type_id='+mechanism_type_id+' href="javascript:;" title="停用">停用</a>');
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-success label-sm">已启用</span>');
+					$(obj).remove();
+					layer.msg('已启用!',{icon: 6,time:1000});
+				}else{
+					layer.msg('操作失败，请重新操作!',{icon: 5,time:1000});
+				}
+			}
+		});
+
+		
+	});
+}
+/****复选框选中******/
+$('table th input:checkbox').on('click' , function(){
+	var that = this;
+	$(this).closest('table').find('tr > td:first-child input:checkbox').each(function(){
+		this.checked = that.checked;
+		$(this).closest('tr').toggleClass('selected');
+	});
+						
+});
+
+	//删除
+	$('.admin_del').click(function(){
+		var mechanism_type_id = $(this).attr('mechanism_type_id');
+		$.ajax({
+			url:"{:url('Mechanism/mechanism_del')}",
+			type:'get',
+			data:{
+				'mechanism_type_id':mechanism_type_id
+			},
+			dataType:'json',
+			success:function(data){
+				if(data == 1){
+					// obj.remove();
+					location.reload();
+				} else{
+					layer.msg('操作失败，请重新操作!',{icon: 5,time:1000});
+				}
+			}
+		});
+	})
+</script>

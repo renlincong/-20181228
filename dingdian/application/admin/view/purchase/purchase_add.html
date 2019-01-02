@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<base href="__STATIC__/admin/">
+<link href="css/shop.css" type="text/css" rel="stylesheet" />
+<link href="css/Sellerber.css" type="text/css"  rel="stylesheet" />
+<link href="css/bkg_ui.css" type="text/css"  rel="stylesheet" />
+<link href="font/css/font-awesome.min.css"  rel="stylesheet" type="text/css" />
+<script src="js/jquery-1.9.1.min.js" type="text/javascript" ></script>
+<script type="text/javascript" src="js/Validform/Validform.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script src="js/shopFrame.js" type="text/javascript"></script>
+<script src="js/Sellerber.js" type="text/javascript"></script>
+<script src="js/layer/layer.js" type="text/javascript"></script>
+<title>添加采购订单</title>
+</head>
+<!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
+  <script src="js/css3-mediaqueries.js"  type="text/javascript"></script>
+  <![endif]-->
+<body>
+<div class="margin add_administrator" id="page_style">
+    <div class="add_style add_administrator_style">
+    <div class="title_name">添加采购订单</div>
+    <form action="{:url('Purchase/purchase_add_do')}" method="post" id="form-admin-add">
+	    <ul>
+		     <li class="clearfix">
+		     <label class="label_name col-xs-2 col-lg-2"><i>*</i>合同号：</label>
+		     <div class="formControls col-xs-6">
+		     <input type="text" class="input-text col-xs-12" value="" placeholder="请输入合同号" id="user-name" name="purchase_contract_number" datatype="*" nullmsg="合同号不能为空"></div>
+		    <div class="col-4"> <span class="Validform_checktip"></span></div>
+		     </li>
+		   
+		   <li class="clearfix">
+		     <label class="label_name col-xs-2 col-lg-2"><i>*</i>供应商：</label>
+		     <div class="formControls col-xs-6">
+		     <input type="text" class="input-text col-xs-12" value="山大地纬" placeholder="请输入供应商名称" id="user-name" name="purchase_supplir" datatype="*" nullmsg="供应商不能为空"></div>
+		    <div class="col-4"> <span class="Validform_checktip"></span></div>
+		     </li>
+
+			<li class="clearfix">
+			    <label class="label_name col-xs-2 col-lg-2"><i class="c-red">*</i>地区库房：</label>
+			    <div class="formControls  skin-minimal col-xs-6">
+		            <label><input name="purchase_address" type="radio" class="ace" value="1" checked="checked"><span class="lbl">达州</span></label>&nbsp;&nbsp;
+		            <label><input name="purchase_address" type="radio" class="ace" value="2"><span class="lbl">营口</span></label>
+		  		</div>
+	        </li>
+
+		    <li class="clearfix">
+		     <label class="label_name col-xs-2 col-lg-2"><i class="c-red">*</i>采购数量：</label>
+			 <div class="formControls col-xs-6">
+			 <input type="text" placeholder="请输入采购数量" id="purchase_number" name="purchase_number" autocomplete="off" value="" class="input-text col-xs-12" datatype="*" nullmsg="采购数量不能为空">
+			</div>
+		     <div class="col-4"> <span class="Validform_checktip"></span></div>
+		    </li>
+
+			<li class="clearfix">
+		     <label class="label_name col-xs-2 col-lg-2"><i class="c-red">*</i>单价：</label>
+			 <div class="formControls col-xs-6">
+			 <input type="text" placeholder="请输入单价（以元为单位）" id="purchase_price" name="purchase_price" autocomplete="off" value="" class="input-text col-xs-12" datatype="*" nullmsg="单价不能为空">
+			</div>
+		     <div class="col-4"> <span class="Validform_checktip"></span></div>
+		    </li>
+
+			<li class="clearfix">
+		     <label class="label_name col-xs-2 col-lg-2"><i class="c-red">*</i>总价：</label>
+			 <div class="formControls col-xs-6">
+			 <input type="text" placeholder="请输入总价" id='purchase_sum_price'  readonly="readonly" name="purchase_sum_price" autocomplete="off" value="0" class="input-text col-xs-12">
+			</div>
+		     <div class="col-4"> <span class="Validform_checktip"></span></div>
+		    </li>
+
+		    <li class="clearfix">
+				<div class="col-xs-2 col-lg-2">&nbsp;</div>
+				<div class="col-xs-6">
+				    <input class="btn button_btn bg-deep-blue " type="submit" id="Add_Administrator" value="提交添加">
+			        <input name="reset" type="reset" class="btn button_btn btn-gray" value="取消重置" />
+			        <a href="javascript:ovid()" onclick="javascript :history.back(-1);" class="btn btn-info button_btn"><i class="fa fa-reply"></i> 返回上一步</a>
+				</div>
+			</li>
+    	</ul>
+    </form>
+    </div>
+    <div class="split_line"></div>
+    <div class="Notice_style l_f">
+      
+    </div>
+</div>
+</body>
+</html>
+<script>
+
+/*******滚动条*******/
+$("body").niceScroll({  
+	cursorcolor:"#888888",  
+	cursoropacitymax:1,  
+	touchbehavior:false,  
+	cursorwidth:"5px",  
+	cursorborder:"0",  
+	cursorborderradius:"5px"  
+});
+//表单验证提交
+$("#form-admin-add").Validform({		
+		 tiptype:2,
+		callback:function(data){
+		//form[0].submit();
+		if(data.status==1){ 
+            layer.msg(data.info, {icon: data.status,time: 1000}, function(){ 
+        		location.reload();//刷新页面
+        	});   
+        }else{ 
+                layer.msg(data.info, {icon: data.status,time: 3000}); 
+            } 		  
+			var index =parent.$("#iframe").attr("src");
+			parent.layer.close(index);
+			//
+		}				
+	});
+
+	function price(){
+		var purchase_number = Math.floor($('#purchase_number').val());
+		var purchase_price = Math.floor($('#purchase_price').val());
+		if(purchase_number == '' || purchase_number == '0' || purchase_price == '' || purchase_price == '0'){
+			var Zero = '0';
+			$('#purchase_sum_price').val(Zero);
+		} else {
+			prices = purchase_number*purchase_price;
+			$('#purchase_sum_price').val(prices);
+		}
+	}
+
+	$('#purchase_number').blur(function(){
+		price();
+	});
+
+	$('#purchase_price').blur(function(){
+		price();
+	});
+</script>

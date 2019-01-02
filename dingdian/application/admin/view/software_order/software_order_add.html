@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<base href="__STATIC__/admin/">
+	<link href="css/shop.css" type="text/css" rel="stylesheet" />
+	<link href="css/Sellerber.css" type="text/css"  rel="stylesheet" />
+	<link href="css/bkg_ui.css" type="text/css"  rel="stylesheet" />
+	<link href="font/css/font-awesome.min.css"  rel="stylesheet" type="text/css" />
+	<script src="js/jquery-1.9.1.min.js" type="text/javascript" ></script>
+	<script type="text/javascript" src="js/Validform/Validform.min.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	<script src="js/shopFrame.js" type="text/javascript"></script>
+	<script src="js/Sellerber.js" type="text/javascript"></script>
+	<script src="js/layer/layer.js" type="text/javascript"></script>
+	<script src="js/laydate/laydate.js" type="text/javascript"></script>
+	<title>添加软件费订单</title>
+</head>
+<body>
+<div class="margin add_administrator" id="page_style">
+    <div class="add_style add_administrator_style">
+    <div class="title_name">添加软件费订单</div>
+    <form action="{:url('SoftwareOrder/server_order_add_do')}" method="post" id="form-admin-add">
+	    <ul>
+	    	<li class="clearfix">
+		        <label class="label_name col-xs-2 col-lg-2"><i>*</i>机构编码：</label>
+		        <div class="formControls col-xs-6">
+		        	<input type="text" class="input-text col-xs-12" value="" placeholder="请输入机构编码" id="mechanism_code" name="mechanism_code" datatype="*" nullmsg="机构编码不能为空">
+		        </div>
+		    	<div class="col-4"> <span class="Validform_checktip" id="error_s"></span></div>
+		    </li>
+
+		    <li class="clearfix">
+		        <label class="label_name col-xs-2 col-lg-2"><i>*</i>机构名称：</label>
+		        <div class="formControls col-xs-6">
+		        	<input type="text" class="input-text col-xs-12" id="mechanism_name" value="" disabled="disabled" placeholder="请填写机构编码获取机构名称" name="mechanism_name"  datatype="*" nullmsg="请填写正确的机构编码获取机构名称">
+		        	<input type="hidden" name="user_id" value="" id="user_id" />
+		        </div>
+		    	<div class="col-4"> <span class="Validform_checktip"></span></div>
+		    </li>
+
+		    <li class="clearfix hidden">
+		        <label class="label_name col-xs-2 col-lg-2"><i>*</i>订单名称：</label>
+		        <div class="formControls col-xs-6">
+		        	<input type="text" class="input-text col-xs-12" value="" placeholder="请输入订单名称" id="software_order_name" name="software_order_name" datatype="*" nullmsg="订单名称不能为空">
+		        </div>
+		    	<div class="col-4"> <span class="Validform_checktip" id="error_s"></span></div>
+		    </li>
+
+		    <li class="clearfix hidden">
+		        <label class="label_name col-xs-2 col-lg-2"><i>*</i>订单金额：</label>
+		        <div class="formControls col-xs-6">
+		        	<input type="text" class="input-text col-xs-12" value="" placeholder="请输入订单金额" id="" name="order_price" datatype="*" nullmsg="订单金额不能为空">
+		        </div>
+		    	<div class="col-4"> <span class="Validform_checktip"></span></div>
+		    </li>
+	
+			<li class="clearfix hidden">
+		        <label class="label_name col-xs-2 col-lg-2"><i>*</i>产品名称：</label>
+		        <div class="formControls col-xs-6">
+		        	<input type="text" class="input-text col-xs-12" value="软件费" placeholder="请输入产品名称" id="" name="product_name" datatype="*" nullmsg="产品名称不能为空">
+		        </div>
+		    	<div class="col-4"> <span class="Validform_checktip"></span></div>
+		    </li>
+	
+			<li class="clearfix hidden">
+		        <label class="label_name col-xs-2 col-lg-2"><i>*</i>服务期限：</label>
+		        <div class="formControls col-xs-6">
+		        	<input class="laydate-icon col-xs-4 col-lg-3" name="service_period_begin" id="start" style="margin-right:10px; height:28px; line-height:28px; float:left; width: 120px;" datatype="*" nullmsg="服务期限开始时间不能为空">
+		        	<span  style=" float:left; padding:0px 10px; line-height:32px;">至</span>
+      				<input class="laydate-icon col-xs-4 col-lg-3" id="end" name="service_period_end" style="height:28px; line-height:28px; float:left; width: 120px;" datatype="*" nullmsg="服务期限开始结束不能为空">
+		        </div>
+		    	<div class="col-4"> <span class="Validform_checktip"></span></div>
+		    </li>
+			
+			<li class="clearfix hidden">
+			    <label class="label_name col-xs-2 col-lg-2"><i class="c-red">*</i>订单标签：</label>
+			    <div class="formControls  skin-minimal col-xs-6">
+				    <label><input name="software_label" type="radio" class="ace" value="1" checked="checked"><span class="lbl">系统+加密卡</span></label>&nbsp;&nbsp;
+		            <label><input name="software_label" type="radio" class="ace" value="2"><span class="lbl">加密卡</span></label>
+		  		</div>
+	        </li>
+
+			<li class="clearfix hidden">
+		        <label class="label_name col-xs-2 col-lg-2"><i>*</i>加密卡数量：</label>
+		        <div class="formControls col-xs-6">
+		        	<input type="text" class="input-text col-xs-12" value="0" placeholder="请输入加密卡数量" id="" name="cards_number" datatype="*" nullmsg="加密卡数量不能为空">
+		        </div>
+		    	<div class="col-4"> <span class="Validform_checktip"></span></div>
+		    </li>
+
+		    <li class="clearfix">
+				<div class="col-xs-2 col-lg-2">&nbsp;</div>
+				<div class="col-xs-6">
+				    <input class="btn button_btn bg-deep-blue " type="submit" id="Add_Administrator" value="提交添加">
+			        <input name="reset" type="reset" class="btn button_btn btn-gray" value="取消重置" />
+			        <a href="javascript:ovid()" onclick="javascript :history.back(-1);" class="btn btn-info button_btn"><i class="fa fa-reply"></i> 返回上一步</a>
+				</div>
+			</li>
+    	</ul>
+    </form>
+    </div>
+    <div class="split_line"></div>
+    <div class="Notice_style l_f">
+    </div>
+</div>
+</body>
+</html>
+<script>
+
+/*******滚动条*******/
+$("body").niceScroll({  
+	cursorcolor:"#888888",  
+	cursoropacitymax:1,  
+	touchbehavior:false,  
+	cursorwidth:"5px",  
+	cursorborder:"0",  
+	cursorborderradius:"5px"  
+});
+/******时间设置*******/
+  var start = {
+    elem: '#start',
+    format: 'YYYY-MM-DD',
+   // min: laydate.now(), //设定最小日期为当前日期
+    max: '2099-06-16', //最大日期
+    istime: true,
+    istoday: false,
+    choose: function(datas){
+         end.min = datas; //开始日选好后，重置结束日的最小日期
+         end.start = datas //将结束日的初始值设定为开始日
+    }
+};
+var end = {
+    elem: '#end',
+    format: 'YYYY-MM-DD',
+    //min: laydate.now(),
+    max: '2099-06-16',
+    istime: true,
+    istoday: false,
+    choose: function(datas){
+        start.max = datas; //结束日选好后，重置开始日的最大日期
+    }
+};
+laydate(start);
+laydate(end);
+//表单验证提交
+$("#form-admin-add").Validform({		
+		 tiptype:2,
+		callback:function(data){
+		//form[0].submit();
+		if(data.status==1){ 
+                layer.msg(data.info, {icon: data.status,time: 1000}, function(){ 
+                    location.reload();//刷新页面 
+                    });   
+            } 
+            else{ 
+                layer.msg(data.info, {icon: data.status,time: 3000}); 
+            } 		  
+			var index =parent.$("#iframe").attr("src");
+			parent.layer.close(index);
+		}				
+	});
+</script>
+<script>
+	$(document).ready(function(){
+		$('.hidden').hide();
+	});
+
+	$('#mechanism_code').blur(function(){
+		var mechanism_code = $(this).val();
+		if(mechanism_code != ''){
+			$.ajax({
+				url:"{:url('Commen/code_get_user')}",
+				type:'post',
+				data:{
+					'mechanism_code':mechanism_code
+				},
+				dataType:'json',
+				success:function(data){
+					if(data.state == 1){
+						$('#mechanism_name').val(data.content[0]['mechanism_name']);
+						$('#user_id').val(data.content[0]['user_id']);
+						$('.hidden').show();
+					}else{
+						$('.hidden').hide();
+						$('#mechanism_name').val('');
+						$('#user_id').val('');
+						$('#error_s').removeClass('Validform_right').addClass('Validform_wrong').html('没有搜索到该机构！');
+					}
+				}
+			});
+		}else{
+			$('.hidden').hide();
+						$('#mechanism_name').val('');
+						$('#user_id').val('');
+		}
+	});
+</script>
